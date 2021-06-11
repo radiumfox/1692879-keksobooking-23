@@ -47,13 +47,16 @@ const ACCOMODATION_TIME = [
 
 const SIMILAR_ADVERTISMENTS_COUNT = 10;
 
-const createRandomArray = function(someArray) {
-  for (let currentIndex = someArray.length - 1; currentIndex > 0; currentIndex--) {
-    const randomIndex = getRandomInteger(0, someArray.length - 1);
-    [someArray[currentIndex], someArray[randomIndex]] = [someArray[randomIndex], someArray[currentIndex]];
+const createRandomArray = function(oldArray) {
+  const newArray = [];
+  const randomLength = getRandomInteger(0, oldArray.length-1);
+  while(newArray.length < randomLength) {
+    const randomIndex = getRandomInteger(0, oldArray.length-1);
+    if(newArray.indexOf(oldArray[randomIndex]) === -1) {
+      newArray.push(oldArray[randomIndex]);
+    }
   }
-  const randomInteger = getRandomInteger(1, someArray.length);
-  const newArray = someArray.splice(0, randomInteger);
+
   return newArray;
 };
 
@@ -63,37 +66,44 @@ const createAuthor = function() {
   };
 };
 
-const createOffer = function() {
-  return {
-    title: '',
-    address: '',
-    price: getRandomInteger(1,  1000000),
-    type: TYPE_OF_HOUSE[getRandomInteger(0, TYPE_OF_HOUSE.length - 1)],
-    rooms: getRandomInteger(1, 10),
-    guests: getRandomInteger(1, 10),
-    checkin: ACCOMODATION_TIME[getRandomInteger(0, ACCOMODATION_TIME.length - 1)],
-    checkout: ACCOMODATION_TIME[getRandomInteger(0, ACCOMODATION_TIME.length - 1)],
-    features: createRandomArray(FEATURES),
-    description: '',
-    photos: createRandomArray(PHOTOS),
-  };
+const address = {
+  lat: getRandomFloat(35.65000, 35.70000, 5),
+  lng: getRandomFloat(139.70000, 139.80000, 5),
 };
 
-const createLocation = function() {
+const latitude = address.lat;
+const longitude = address.lng;
+
+const createOffer = function() {
+  const houseType = TYPE_OF_HOUSE[getRandomInteger(0, TYPE_OF_HOUSE.length - 1)];
+  const acсomodationTime = ACCOMODATION_TIME[getRandomInteger(0, ACCOMODATION_TIME.length - 1)];
+  const getRoomsNumber = function(){
+    const roomsNumber = getRandomInteger(1, 10);
+    return roomsNumber;
+  };
+
   return {
-    lat: getRandomFloat(35.65000, 35.70000, 5),
-    lng: getRandomFloat(139.70000, 139.80000, 5),
+    title: `A nice and comfort ${houseType} in the center of the city.`,
+    address: `${latitude}, ${longitude}`,
+    price: getRandomInteger(1, 1000000),
+    type: houseType,
+    rooms: getRoomsNumber(),
+    guests: getRandomInteger(1, 10),
+    checkin: acсomodationTime,
+    checkout: acсomodationTime,
+    features: createRandomArray(FEATURES),
+    description: `This ${houseType} has everything you need.`,
+    photos: createRandomArray(PHOTOS),
   };
 };
 
 const createAdvertisment = function() {
   return {
-    autor: createAuthor(),
+    author: createAuthor(),
     offer: createOffer(),
-    location: createLocation(),
+    location: address,
   };
 };
 
+// eslint-disable-next-line no-unused-vars
 const similarAdvertisments = new Array(SIMILAR_ADVERTISMENTS_COUNT).fill(null).map(() => createAdvertisment());
-
-similarAdvertisments;
