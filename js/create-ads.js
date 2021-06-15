@@ -1,5 +1,5 @@
-import {getRandomInteger, createRandomArray} from './util.js';
-import {TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, latitude, longitude} from './advertisment-info.js';
+import { getRandomInteger, createRandomArray } from './utils.js';
+import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, latitude, longitude } from './ads-info.js';
 
 const createAuthor = function() {
   return {
@@ -30,4 +30,4 @@ const createOffer = function() {
   };
 };
 
-export {createAuthor, createOffer};
+export { createAuthor, createOffer };
