@@ -1,4 +1,4 @@
-import {getRandomFloat} from './util.js';
+import { getRandomFloat } from './utils.js';
 
 const TYPE_OF_HOUSE = [
   'palace',
@@ -39,4 +39,4 @@ const address = {
 const latitude = address.lat;
 const longitude = address.lng;
 
-export {TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, address, latitude, longitude};
+export { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, address, latitude, longitude };

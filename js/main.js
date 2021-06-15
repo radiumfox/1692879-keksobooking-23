@@ -1,6 +1,5 @@
-import {createAuthor, createOffer} from './create-advertisment.js';
-import {SIMILAR_ADVERTISMENTS_COUNT} from './advertisment-info.js';
-import {address} from './advertisment-info.js';
+import { createAuthor, createOffer } from './create-ads.js';
+import { SIMILAR_ADVERTISMENTS_COUNT, address } from './ads-info.js';
 
 const createAdvertisment = function() {
   return {

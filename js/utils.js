@@ -25,4 +25,4 @@ const createRandomArray = function(oldArray) {
   return newArray;
 };
 
-export {getRandomInteger, getRandomFloat, createRandomArray};
+export { getRandomInteger, getRandomFloat, createRandomArray };
