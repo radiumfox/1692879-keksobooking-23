@@ -1,5 +1,3 @@
-import { getRandomFloat } from './utils.js';
-
 const TYPE_OF_HOUSE = [
   'palace',
   'flat',
@@ -29,14 +27,14 @@ const ACCOMODATION_TIME = [
   '14:00',
 ];
 
-const SIMILAR_ADVERTISMENTS_COUNT = 10;
-
-const address = {
-  lat: getRandomFloat(35.65000, 35.70000, 5),
-  lng: getRandomFloat(139.70000, 139.80000, 5),
+const TITLES = {
+  'flat': 'Уютная квартира в самом сердце города',
+  'palace': 'Дворец с видом на сад',
+  'hotel': 'Недорогой отель с видом на море',
+  'bungalow': 'Симпатичное бунгало в 500 м от моря',
+  'house': 'Коттедж для отдыха большой компании',
 };
 
-const latitude = address.lat;
-const longitude = address.lng;
+const SIMILAR_ADVERTISMENTS_COUNT = 10;
 
-export { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, address, latitude, longitude };
+export { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, TITLES };
