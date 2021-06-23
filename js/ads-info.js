@@ -27,7 +27,7 @@ const ACCOMODATION_TIME = [
   '14:00',
 ];
 
-const TITLES = {
+const DESCRIPTIONS = {
   'flat': 'Уютная квартира в самом сердце города',
   'palace': 'Дворец с видом на сад',
   'hotel': 'Недорогой отель с видом на море',
@@ -37,4 +37,4 @@ const TITLES = {
 
 const SIMILAR_ADVERTISMENTS_COUNT = 10;
 
-export { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, TITLES };
+export { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS };

@@ -1,5 +1,5 @@
 import { getRandomInteger, createRandomArray, getRandomFloat } from './utils.js';
-import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, TITLES } from './ads-info.js';
+import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS } from './ads-info.js';
 
 const createAuthor = function() {
   return {
@@ -19,12 +19,13 @@ const createOffer = function() {
     return roomsNumber;
   };
 
-  const getDescription = function(object) {
-    for (const key in object) {
-      if (key === houseType) {
-        return object[key];
+  const getDescriptionByType = function(array) {
+    for (const key in DESCRIPTIONS) {
+      if (key === array) {
+        return DESCRIPTIONS[key];
       }
     }
+    return '';
   };
 
   return {
@@ -37,14 +38,13 @@ const createOffer = function() {
     checkin: acсomodationTime,
     checkout: acсomodationTime,
     features: createRandomArray(FEATURES),
-    description: getDescription(TITLES),
+    description: getDescriptionByType(houseType),
     photos: createRandomArray(PHOTOS),
   };
 };
 
 const createAdvertisment = () => Object.assign({}, createAuthor(), createOffer());
 
-// eslint-disable-next-line no-unused-vars
 const createAdvertisments = () => new Array(SIMILAR_ADVERTISMENTS_COUNT).fill(null).map(() => createAdvertisment());
 
 export { createAuthor, createOffer, createAdvertisments };
