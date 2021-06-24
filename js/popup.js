@@ -16,45 +16,59 @@ similarAds.forEach((ad) => {
   const adElement = cardTemplate.cloneNode(true);
 
   const fillTitle = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'title')?
-      adElement.querySelector('.popup__title').textContent = ad.title:
-      adElement.querySelector('.popup__title').classList.add('hidden');
+    const adTitle = adElement.querySelector('.popup__title');
+    if (ad['title']) {
+      adTitle.textContent = ad.title;
+    } else {
+      adTitle.classList.add('hidden');
+    }
   };
   fillTitle();
 
   const fillAvatar = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'avatar')?
-      adElement.querySelector('.popup__avatar').src = ad.avatar:
-      adElement.querySelector('.popup__avatar').classList.add('hidden');
+    const adAvatar = adElement.querySelector('.popup__avatar');
+    if (ad['avatar']) {
+      adAvatar.src = ad.avatar;
+    } else {
+      adAvatar.classList.add('hidden');
+    }
   };
   fillAvatar();
 
   const fillAddress = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'address')?
-      adElement.querySelector('.popup__text--address').textContent = ad.address:
-      adElement.querySelector('.popup__text--address').classList.add('hidden');
+    const adAddress = adElement.querySelector('.popup__text--address');
+    if (ad['address']) {
+      adAddress.textContent = ad.address;
+    } else {
+      adAddress.classList.add('hidden');
+    }
   };
   fillAddress();
 
   const fillPrice = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'price')?
-      adElement.querySelector('.popup__text--price').innerHTML = `${ad.price} <span>₽/ночь</span>`:
-      adElement.querySelector('.popup__text--price').classList.add('hidden');
+    const adPrice = adElement.querySelector('.popup__text--price');
+    if(ad['price']) {
+      adPrice.innerHTML = `${ad.price} <span>₽/ночь</span>`;
+    } else {
+      adPrice.classList.add('hidden');
+    }
   };
   fillPrice();
 
   const fillType = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'price')?
-      adElement.querySelector('.popup__type').textContent = ad.type:
-      adElement.querySelector('.popup__type').classList.add('hidden');
+    const adType = adElement.querySelector('.popup__type');
+    if (ad['type']) {
+      adType.textContent = ad.type;
+    } else {
+      adType.classList.add('hidden');
+    }
   };
   fillType();
 
   const getRooms = function() {
     if (ad.rooms === 1) {
       return `${ad.rooms} комната`;
-    } else
-    if (ad.rooms > 1 && ad.rooms < 5) {
+    } else if (ad.rooms > 1 && ad.rooms < 5) {
       return `${ad.rooms} комнаты`;
     } else {
       return `${ad.rooms} комнат`;
@@ -70,31 +84,36 @@ similarAds.forEach((ad) => {
   };
 
   const fillCapacity = function() {
-    if(Object.prototype.hasOwnProperty.call(ad, 'rooms') && Object.prototype.hasOwnProperty.call(ad, 'guests')) {
-      return adElement.querySelector('.popup__text--capacity').textContent = `${getRooms()} для ${getGuests()}`;
-    } else
-    if (Object.prototype.hasOwnProperty.call(ad, 'rooms')) {
-      return adElement.querySelector('.popup__text--capacity').textContent = getRooms();
-    } else
-    if (Object.prototype.hasOwnProperty.call(ad, 'guests')) {
-      return adElement.querySelector('.popup__text--capacity').textContent = `для ${getGuests()}`;
+    const adCapacity = adElement.querySelector('.popup__text--capacity');
+    if (ad['rooms'] && ad['guests']) {
+      return adCapacity.textContent = `${getRooms()} для ${getGuests()}`;
+    } else if (ad['rooms']) {
+      return adCapacity.textContent = getRooms();
+    } else if (ad['guests']) {
+      adCapacity.textContent = `для ${getGuests()}`;
     } else {
-      return adElement.querySelector('.popup__text--capacity').classList.add('hidden');
+      return adCapacity.classList.add('hidden');
     }
   };
   fillCapacity();
 
   const fillTime = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'checkin') && Object.prototype.hasOwnProperty.call(ad, 'checkin')?
-      adElement.querySelector('.popup__text--time').textContent = `Заезд после ${ad.checkin}, выезд до ${ad.checkout}`:
-      adElement.querySelector('.popup__text--time').classList.add('hidden');
+    const adTime = adElement.querySelector('.popup__text--time');
+    if (ad['checkin']) {
+      adTime.textContent = `Заезд после ${ad.checkin}, выезд до ${ad.checkout}`;
+    } else {
+      adTime.classList.add('hidden');
+    }
   };
   fillTime();
 
   const fillDescription = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'description')?
-      adElement.querySelector('.popup__description').textContent = ad.description:
-      adElement.querySelector('.popup__description').classList.add('hidden');
+    const adDescription = adElement.querySelector('.popup__description');
+    if (ad['description']) {
+      adDescription.textContent = ad.description;
+    } else {
+      adDescription.classList.add('hidden');
+    }
   };
   fillDescription();
 
@@ -109,9 +128,12 @@ similarAds.forEach((ad) => {
   };
 
   const fillPhotos = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'photos')?
-      getPhotos():
-      adElement.querySelector('.popup__photos').classList.add('hidden');
+    const adPhotos = adElement.querySelector('.popup__photos');
+    if (ad['photos']) {
+      getPhotos();
+    } else {
+      adPhotos.classList.add('hidden');
+    }
   };
   fillPhotos();
 
@@ -127,9 +149,12 @@ similarAds.forEach((ad) => {
   };
 
   const fillFeatures = function() {
-    Object.prototype.hasOwnProperty.call(ad, 'features')?
-      getFeatures():
-      adElement.querySelector('.popup__features').classList.add('hidden');
+    const adFeatures = adElement.querySelector('.popup__features');
+    if (ad['features']) {
+      getFeatures();
+    } else {
+      adFeatures.classList.add('hidden');
+    }
   };
   fillFeatures();
 

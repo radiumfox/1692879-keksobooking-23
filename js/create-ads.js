@@ -19,13 +19,12 @@ const createOffer = function() {
     return roomsNumber;
   };
 
-  const getDescriptionByType = function(array) {
-    for (const key in DESCRIPTIONS) {
-      if (key === array) {
-        return DESCRIPTIONS[key];
-      }
+  const getDescriptionByType = function(type) {
+    if (DESCRIPTIONS[type]) {
+      return DESCRIPTIONS[type];
+    } else {
+      return '';
     }
-    return '';
   };
 
   return {
