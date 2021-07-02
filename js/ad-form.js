@@ -8,8 +8,33 @@ const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const checkin = adForm.querySelector('#timein');
 const checkout = adForm.querySelector('#timeout');
+const fieldsets = adForm.querySelectorAll('fieldset');
+const mapFilter = document.querySelector('.map__filters');
+const mapControls = mapFilter.querySelectorAll('select');
 
-const MIN_PRICES = {
+const disableForm = function() {
+  adForm.classList.add('ad-form--disabled');
+  mapFilter.classList.add('map__filters--disabled');
+  [fieldsets].map((element)=> {
+    element.disabled = true;
+  });
+  [mapControls].map((element)=> {
+    element.disabled = true;
+  });
+};
+
+const activateForm = function() {
+  adForm.classList.remove('ad-form--disabled');
+  mapFilter.classList.remove('map__filters--disabled');
+  [fieldsets].map((element)=> {
+    element.disabled = false;
+  });
+  [mapControls].map((element)=> {
+    element.disabled = false;
+  });
+};
+
+const DEFAULT_PRICES = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -28,7 +53,7 @@ const checkTitle = function() {
 };
 
 const checkPrice = function() {
-  const minPrice = MIN_PRICES[typeInput.value];
+  const minPrice = DEFAULT_PRICES[typeInput.value];
   if(priceInput.value < minPrice) {
     priceInput.setCustomValidity(`Цена за ночь не может быть ниже ${minPrice} р.`);
   } else if (Number(priceInput.value) > MAX_PRICE) {
@@ -59,7 +84,7 @@ const validateForm = function() {
   priceInput.addEventListener('input', checkPrice);
   capacity.addEventListener('input', checkCapacity);
   checkin.addEventListener('change', checkTime);
-  priceInput.placeholder = MIN_PRICES[typeInput.value];
+  priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
 };
 
-export { validateForm };
+export { validateForm, disableForm, activateForm };
