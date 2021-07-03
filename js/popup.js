@@ -4,7 +4,7 @@ const similarAds = createAdvertisments();
 const mapBox = document.querySelector('.map__canvas');
 const cardTemplate = document.querySelector('#card').content;
 
-const housingTypes = {
+const HOUSING_TYPES = {
   'palace': 'Дворец',
   'flat': 'Квартира',
   'house': 'Дом',
@@ -47,7 +47,7 @@ similarAds.forEach((ad) => {
 
   const fillPrice = function() {
     const adPrice = adElement.querySelector('.popup__text--price');
-    if(ad['price']) {
+    if (ad['price']) {
       adPrice.innerHTML = `${ad.price} <span>₽/ночь</span>`;
     } else {
       adPrice.classList.add('hidden');
@@ -158,15 +158,15 @@ similarAds.forEach((ad) => {
   };
   fillFeatures();
 
-  const getCaptionByType = function() {
-    for (const key in housingTypes) {
-      if (key === ad.type) {
-        const adType = housingTypes[key];
-        return adType;
-      }
+  const getCaptionByType = function(type) {
+    if (HOUSING_TYPES[type]) {
+      return HOUSING_TYPES[type];
+    } else {
+      return '';
     }
   };
-  adElement.querySelector('.popup__type').textContent = getCaptionByType();
+
+  adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.type);
 
   adElement.querySelector('.popup').classList.add('hidden');
   mapBox.appendChild(adElement);
