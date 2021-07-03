@@ -47,7 +47,7 @@ similarAds.forEach((ad) => {
 
   const fillPrice = function() {
     const adPrice = adElement.querySelector('.popup__text--price');
-    if(ad['price']) {
+    if (ad['price']) {
       adPrice.innerHTML = `${ad.price} <span>₽/ночь</span>`;
     } else {
       adPrice.classList.add('hidden');
