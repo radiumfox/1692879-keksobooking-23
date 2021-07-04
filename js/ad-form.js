@@ -1,21 +1,21 @@
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
-const minTitle = titleInput.getAttribute('minLength');
+const titleMinLength = titleInput.getAttribute('minLength');
 const priceInput = adForm.querySelector('#price');
-const MAX_PRICE = priceInput.getAttribute('max');
+const priceMaxValue = priceInput.getAttribute('max');
 const typeInput = adForm.querySelector('#type');
 const roomNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const checkin = adForm.querySelector('#timein');
 const checkout = adForm.querySelector('#timeout');
-const fieldsets = adForm.querySelectorAll('fieldset');
+const formFieldsets = adForm.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapControls = mapFilter.querySelectorAll('select');
 
 const disableForm = function() {
   adForm.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
-  [fieldsets].map((element)=> {
+  [formFieldsets].map((element)=> {
     element.disabled = true;
   });
   [mapControls].map((element)=> {
@@ -26,7 +26,7 @@ const disableForm = function() {
 const activateForm = function() {
   adForm.classList.remove('ad-form--disabled');
   mapFilter.classList.remove('map__filters--disabled');
-  [fieldsets].map((element)=> {
+  [formFieldsets].map((element)=> {
     element.disabled = false;
   });
   [mapControls].map((element)=> {
@@ -44,8 +44,8 @@ const DEFAULT_PRICES = {
 
 const checkTitle = function() {
   const titleLength = titleInput.value.length;
-  if(titleLength < minTitle){
-    titleInput.setCustomValidity(`Еще ${minTitle - titleLength} символов`);
+  if (titleLength < titleMinLength){
+    titleInput.setCustomValidity(`Еще ${titleMinLength - titleLength} символов`);
   } else {
     titleInput.setCustomValidity('');
   }
@@ -56,8 +56,8 @@ const checkPrice = function() {
   const minPrice = DEFAULT_PRICES[typeInput.value];
   if(priceInput.value < minPrice) {
     priceInput.setCustomValidity(`Цена за ночь не может быть ниже ${minPrice} р.`);
-  } else if (Number(priceInput.value) > MAX_PRICE) {
-    priceInput.setCustomValidity(`Цена за ночь не может быть выше ${MAX_PRICE} р.`);
+  } else if (Number(priceInput.value) > priceMaxValue) {
+    priceInput.setCustomValidity(`Цена за ночь не может быть выше ${priceMaxValue} р.`);
   } else {
     priceInput.setCustomValidity('');
   }
@@ -71,7 +71,11 @@ const checkCapacity = function() {
     '3':[1, 2, 3],
     '100':[0],
   };
-  capacity.setCustomValidity(numberOfGuests[roomNumber.value].includes(Number(capacity.value)) ? '' : 'Число гостей не должно превышать число комнат');
+  if (numberOfGuests[roomNumber.value].includes(Number(capacity.value))) {
+    capacity.setCustomValidity('');
+  } else {
+    capacity.setCustomValidity('Число гостей не должно превышать число комнат');
+  }
   capacity.reportValidity();
 };
 

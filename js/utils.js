@@ -17,7 +17,7 @@ const createRandomArray = function(oldArray) {
   const randomLength = getRandomInteger(1, oldArray.length - 1);
   while(newArray.length < randomLength) {
     const randomIndex = getRandomInteger(0, oldArray.length - 1);
-    if(newArray.indexOf(oldArray[randomIndex]) === -1) {
+    if (newArray.indexOf(oldArray[randomIndex]) === -1) {
       newArray.push(oldArray[randomIndex]);
     }
   }
