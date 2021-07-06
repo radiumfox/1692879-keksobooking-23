@@ -15,10 +15,10 @@ const mapControls = mapFilter.querySelectorAll('select');
 const disableForm = function() {
   adForm.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
-  [formFieldsets].map((element)=> {
+  [formFieldsets].map((element) => {
     element.disabled = true;
   });
-  [mapControls].map((element)=> {
+  [mapControls].map((element) => {
     element.disabled = true;
   });
 };
@@ -26,10 +26,10 @@ const disableForm = function() {
 const activateForm = function() {
   adForm.classList.remove('ad-form--disabled');
   mapFilter.classList.remove('map__filters--disabled');
-  [formFieldsets].map((element)=> {
+  [formFieldsets].map((element) => {
     element.disabled = false;
   });
-  [mapControls].map((element)=> {
+  [mapControls].map((element) => {
     element.disabled = false;
   });
 };
@@ -54,7 +54,7 @@ const checkTitle = function() {
 
 const checkPrice = function() {
   const minPrice = DEFAULT_PRICES[typeInput.value];
-  if(priceInput.value < minPrice) {
+  if (priceInput.value < minPrice) {
     priceInput.setCustomValidity(`Цена за ночь не может быть ниже ${minPrice} р.`);
   } else if (Number(priceInput.value) > priceMaxValue) {
     priceInput.setCustomValidity(`Цена за ночь не может быть выше ${priceMaxValue} р.`);

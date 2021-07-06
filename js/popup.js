@@ -1,9 +1,3 @@
-import { createAdvertisments } from './create-ads.js';
-
-const similarAds = createAdvertisments();
-const mapBox = document.querySelector('.map__canvas');
-const cardTemplate = document.querySelector('#card').content;
-
 const HOUSING_TYPES = {
   'palace': 'Дворец',
   'flat': 'Квартира',
@@ -12,8 +6,9 @@ const HOUSING_TYPES = {
   'hotel': 'Отель',
 };
 
-similarAds.forEach((ad) => {
-  const adElement = cardTemplate.cloneNode(true);
+const createPopup = (ad) => {
+  const cardTemplatee = document.querySelector('#card').content.querySelector('.popup');
+  const adElement = cardTemplatee.cloneNode(true);
 
   const fillTitle = function() {
     const adTitle = adElement.querySelector('.popup__title');
@@ -25,20 +20,10 @@ similarAds.forEach((ad) => {
   };
   fillTitle();
 
-  const fillAvatar = function() {
-    const adAvatar = adElement.querySelector('.popup__avatar');
-    if (ad['avatar']) {
-      adAvatar.src = ad.avatar;
-    } else {
-      adAvatar.classList.add('hidden');
-    }
-  };
-  fillAvatar();
-
   const fillAddress = function() {
     const adAddress = adElement.querySelector('.popup__text--address');
     if (ad['address']) {
-      adAddress.textContent = ad.address;
+      adAddress.textContent = `Координаты: ${ad.address.lat}, ${ad.address.lng}`;
     } else {
       adAddress.classList.add('hidden');
     }
@@ -64,6 +49,77 @@ similarAds.forEach((ad) => {
     }
   };
   fillType();
+
+  const getCaptionByType = function(type) {
+    if (HOUSING_TYPES[type]) {
+      return HOUSING_TYPES[type];
+    } else {
+      return '';
+    }
+  };
+  adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.type);
+  const fillDescription = function() {
+    const adDescription = adElement.querySelector('.popup__description');
+    if (ad['description']) {
+      adDescription.textContent = ad.description;
+    } else {
+      adDescription.classList.add('hidden');
+    }
+  };
+  fillDescription();
+
+  const fillTime = function() {
+    const adTime = adElement.querySelector('.popup__text--time');
+    if (ad['checkin']) {
+      adTime.textContent = `Заезд после ${ad.checkin}, выезд до ${ad.checkout}`;
+    } else {
+      adTime.classList.add('hidden');
+    }
+  };
+  fillTime();
+
+  const getFeatures = function() {
+    adElement.querySelector('.popup__features').innerHTML = '';
+    const currentModifiers = ad.features.map((feature) => `popup__feature--${feature}`);
+    currentModifiers.forEach((element) => {
+      const featureItem = document.createElement('li');
+      featureItem.classList.add('popup__feature');
+      featureItem.classList.add(element);
+      adElement.querySelector('.popup__features').appendChild(featureItem);
+    });
+  };
+
+  const fillFeatures = function() {
+    const adFeatures = adElement.querySelector('.popup__features');
+    if (ad['features']) {
+      getFeatures();
+    } else {
+      adFeatures.classList.add('hidden');
+    }
+  };
+  fillFeatures();
+
+  const getPhotos = function() {
+    adElement.querySelector('.popup__photos').innerHTML = '';
+    ad.photos.forEach((element) => {
+      const photosItem = document.createElement('img');
+      photosItem.src = element;
+      photosItem.alt = 'Фотография жилья';
+      photosItem.width = 70;
+      photosItem.height = 40;
+      adElement.querySelector('.popup__photos').appendChild(photosItem);
+    });
+  };
+
+  const fillPhotos = function() {
+    const adPhotos = adElement.querySelector('.popup__photos');
+    if (ad['photos']) {
+      getPhotos();
+    } else {
+      adPhotos.classList.add('hidden');
+    }
+  };
+  fillPhotos();
 
   const getRooms = function() {
     if (ad.rooms === 1) {
@@ -97,79 +153,17 @@ similarAds.forEach((ad) => {
   };
   fillCapacity();
 
-  const fillTime = function() {
-    const adTime = adElement.querySelector('.popup__text--time');
-    if (ad['checkin']) {
-      adTime.textContent = `Заезд после ${ad.checkin}, выезд до ${ad.checkout}`;
+  const fillAvatar = function() {
+    const adAvatar = adElement.querySelector('.popup__avatar');
+    if (ad['avatar']) {
+      adAvatar.src = ad.avatar;
     } else {
-      adTime.classList.add('hidden');
+      adAvatar.classList.add('hidden');
     }
   };
-  fillTime();
+  fillAvatar();
 
-  const fillDescription = function() {
-    const adDescription = adElement.querySelector('.popup__description');
-    if (ad['description']) {
-      adDescription.textContent = ad.description;
-    } else {
-      adDescription.classList.add('hidden');
-    }
-  };
-  fillDescription();
+  return adElement;
+};
 
-  const getPhotos = function() {
-    adElement.querySelector('.popup__photos').innerHTML = '';
-    for (let currentIndex = 0; currentIndex < ad.photos.length; currentIndex++) {
-      const photosItem = document.createElement('img');
-      photosItem.src = ad.photos[currentIndex];
-      photosItem.alt = 'Фотография жилья';
-      adElement.querySelector('.popup__photos').appendChild(photosItem);
-    }
-  };
-
-  const fillPhotos = function() {
-    const adPhotos = adElement.querySelector('.popup__photos');
-    if (ad['photos']) {
-      getPhotos();
-    } else {
-      adPhotos.classList.add('hidden');
-    }
-  };
-  fillPhotos();
-
-  const getFeatures = function() {
-    adElement.querySelector('.popup__features').innerHTML = '';
-    const currentModifiers = ad.features.map((feature) => `popup__feature--${feature}`);
-    for (let currentIndex = 0; currentIndex < currentModifiers.length; currentIndex++) {
-      const featureItem = document.createElement('li');
-      featureItem.classList.add('popup__feature');
-      featureItem.classList.add(currentModifiers[currentIndex]);
-      adElement.querySelector('.popup__features').appendChild(featureItem);
-    }
-  };
-
-  const fillFeatures = function() {
-    const adFeatures = adElement.querySelector('.popup__features');
-    if (ad['features']) {
-      getFeatures();
-    } else {
-      adFeatures.classList.add('hidden');
-    }
-  };
-  fillFeatures();
-
-  const getCaptionByType = function(type) {
-    if (HOUSING_TYPES[type]) {
-      return HOUSING_TYPES[type];
-    } else {
-      return '';
-    }
-  };
-
-  adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.type);
-
-  adElement.querySelector('.popup').classList.add('hidden');
-  mapBox.appendChild(adElement);
-});
-
-document.querySelectorAll('.popup')[0].classList.remove('hidden');
+export { createPopup };

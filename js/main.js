@@ -1,6 +1,12 @@
 import './popup.js';
-import { validateForm, disableForm, activateForm } from './ad-form.js';
+import { validateForm } from './ad-form.js';
+import { createMarker } from './map.js';
+import { createAdvertisments } from './create-ads.js';
 
 validateForm();
-disableForm();
-activateForm();
+
+const similarAds = createAdvertisments();
+
+similarAds.forEach((ad) => {
+  createMarker(ad);
+});
