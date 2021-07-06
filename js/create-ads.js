@@ -29,7 +29,7 @@ const createOffer = function() {
 
   return {
     title: 'Отличные апартаменты для отдыха',
-    address: `${lat}, ${lng}`,
+    address: {lat, lng},
     price: getRandomInteger(1, 10000),
     type: houseType,
     rooms: getRoomsNumber(),
