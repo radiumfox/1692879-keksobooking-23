@@ -7,8 +7,8 @@ const HOUSING_TYPES = {
 };
 
 const createPopup = (ad) => {
-  const cardTemplatee = document.querySelector('#card').content.querySelector('.popup');
-  const adElement = cardTemplatee.cloneNode(true);
+  const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+  const adElement = cardTemplate.cloneNode(true);
 
   const fillTitle = function() {
     const adTitle = adElement.querySelector('.popup__title');
@@ -158,7 +158,7 @@ const createPopup = (ad) => {
     if (ad['avatar']) {
       adAvatar.src = ad.avatar;
     } else {
-      adAvatar.classList.add('hidden');
+      adAvatar.src = '../img/avatars/default.png';
     }
   };
   fillAvatar();
