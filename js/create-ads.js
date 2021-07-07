@@ -2,9 +2,16 @@ import { getRandomInteger, createRandomArray, getRandomFloat } from './utils.js'
 import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS } from './ads-info.js';
 
 const createAuthor = function() {
-  return {
-    avatar: `img/avatar/user0${getRandomInteger(1, 8)}`,
-  };
+  const avatarNumber = getRandomInteger(1, 11);
+  if (avatarNumber < 10) {
+    return {
+      avatar: `../img/avatars/user0${avatarNumber}.png`,
+    };
+  } else if (avatarNumber >= 10) {
+    return {
+      avatar: `../img/avatars/user${avatarNumber}.png`,
+    };
+  }
 };
 
 const createOffer = function() {
@@ -29,7 +36,7 @@ const createOffer = function() {
 
   return {
     title: 'Отличные апартаменты для отдыха',
-    address: `${lat}, ${lng}`,
+    address: {lat, lng},
     price: getRandomInteger(1, 10000),
     type: houseType,
     rooms: getRoomsNumber(),
