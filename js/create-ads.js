@@ -5,11 +5,11 @@ const createAuthor = function() {
   const avatarNumber = getRandomInteger(1, 11);
   if (avatarNumber < 10) {
     return {
-      avatar: `../img/avatars/user0${avatarNumber}.png`,
+      avatar: `./img/avatars/user0${avatarNumber}.png`,
     };
   } else if (avatarNumber >= 10) {
     return {
-      avatar: `../img/avatars/user${avatarNumber}.png`,
+      avatar: `./img/avatars/user${avatarNumber}.png`,
     };
   }
 };

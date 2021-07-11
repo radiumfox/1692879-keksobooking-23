@@ -1,12 +1,26 @@
 import './popup.js';
-import { validateForm } from './ad-form.js';
-import { createMarker } from './map.js';
-import { createAdvertisments } from './create-ads.js';
+import { validateForm, setUserFormSubmit, resetForm } from './ad-form.js';
+import { createMarker, resetMap } from './map.js';
+import  { getData } from './fetch-data.js';
+import { alertErrorMessage, createSuccessMessage, createFailMessage } from './utils.js';
 
 validateForm();
 
-const similarAds = createAdvertisments();
+const fetchOffers = getData(
+  (data) => {
+    data.forEach((el) => {createMarker(el);});
+  },
+  (err) => {
+    alertErrorMessage(err);
+  });
 
-similarAds.forEach((ad) => {
-  createMarker(ad);
+fetchOffers();
+
+setUserFormSubmit( createSuccessMessage, resetForm, resetMap, createFailMessage );
+
+const resetButton = document.querySelector('.ad-form__reset');
+
+resetButton.addEventListener('click', () => {
+  resetForm();
+  resetMap();
 });
