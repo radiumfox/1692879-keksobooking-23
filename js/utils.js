@@ -31,7 +31,7 @@ const alertErrorMessage = (err) => {
   const map = document.querySelector('.map__canvas');
   const messageBox = document.createElement('div');
   const messageContent = document.createElement('p');
-  messageContent.innerHTML = `Возникла ошибка: <br> ${err}`;
+  messageContent.innerHTML = `Ошибка: <br> ${err}`;
   messageContent.style.fontSize = '25px';
   messageContent.style.color = 'white';
   messageContent.style.wordWrap = 'break-word';
