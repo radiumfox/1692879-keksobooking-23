@@ -57,7 +57,7 @@ const createPopup = (ad) => {
       return '';
     }
   };
-    
+
   adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.offer.type);
   const fillDescription = function() {
     const adDescription = adElement.querySelector('.popup__description');
