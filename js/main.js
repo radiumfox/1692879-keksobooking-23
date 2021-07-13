@@ -6,9 +6,9 @@ import { alertErrorMessage, createSuccessMessage, createFailMessage } from './ut
 
 validateForm();
 
-const fetchOffers = getData(
+const fetchOffers = getData (
   (data) => {
-    data.forEach((el) => {createMarker(el);});
+    data.forEach((el) => { createMarker(el); });
   },
   (err) => {
     alertErrorMessage(err);
