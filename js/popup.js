@@ -12,8 +12,8 @@ const createPopup = (ad) => {
 
   const fillTitle = function() {
     const adTitle = adElement.querySelector('.popup__title');
-    if (ad['title']) {
-      adTitle.textContent = ad.title;
+    if (ad.offer['title']) {
+      adTitle.textContent = ad.offer.title;
     } else {
       adTitle.classList.add('hidden');
     }
@@ -22,8 +22,8 @@ const createPopup = (ad) => {
 
   const fillAddress = function() {
     const adAddress = adElement.querySelector('.popup__text--address');
-    if (ad['address']) {
-      adAddress.textContent = `Координаты: ${ad.address.lat}, ${ad.address.lng}`;
+    if (ad.offer['address']) {
+      adAddress.textContent = `${ad.offer.address}`;
     } else {
       adAddress.classList.add('hidden');
     }
@@ -32,8 +32,8 @@ const createPopup = (ad) => {
 
   const fillPrice = function() {
     const adPrice = adElement.querySelector('.popup__text--price');
-    if (ad['price']) {
-      adPrice.innerHTML = `${ad.price} <span>₽/ночь</span>`;
+    if (ad.offer['price']) {
+      adPrice.innerHTML = `${ad.offer.price} <span>₽/ночь</span>`;
     } else {
       adPrice.classList.add('hidden');
     }
@@ -42,8 +42,8 @@ const createPopup = (ad) => {
 
   const fillType = function() {
     const adType = adElement.querySelector('.popup__type');
-    if (ad['type']) {
-      adType.textContent = ad.type;
+    if (ad.offer['type']) {
+      adType.textContent = ad.offer.type;
     } else {
       adType.classList.add('hidden');
     }
@@ -57,11 +57,12 @@ const createPopup = (ad) => {
       return '';
     }
   };
-  adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.type);
+
+  adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.offer.type);
   const fillDescription = function() {
     const adDescription = adElement.querySelector('.popup__description');
-    if (ad['description']) {
-      adDescription.textContent = ad.description;
+    if (ad.offer['description']) {
+      adDescription.textContent = ad.offer.description;
     } else {
       adDescription.classList.add('hidden');
     }
@@ -70,8 +71,8 @@ const createPopup = (ad) => {
 
   const fillTime = function() {
     const adTime = adElement.querySelector('.popup__text--time');
-    if (ad['checkin']) {
-      adTime.textContent = `Заезд после ${ad.checkin}, выезд до ${ad.checkout}`;
+    if (ad.offer['checkin']) {
+      adTime.textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
     } else {
       adTime.classList.add('hidden');
     }
@@ -80,7 +81,7 @@ const createPopup = (ad) => {
 
   const getFeatures = function() {
     adElement.querySelector('.popup__features').innerHTML = '';
-    const currentModifiers = ad.features.map((feature) => `popup__feature--${feature}`);
+    const currentModifiers = ad.offer.features.map((feature) => `popup__feature--${feature}`);
     currentModifiers.forEach((element) => {
       const featureItem = document.createElement('li');
       featureItem.classList.add('popup__feature');
@@ -91,7 +92,7 @@ const createPopup = (ad) => {
 
   const fillFeatures = function() {
     const adFeatures = adElement.querySelector('.popup__features');
-    if (ad['features']) {
+    if (ad.offer['features']) {
       getFeatures();
     } else {
       adFeatures.classList.add('hidden');
@@ -101,7 +102,7 @@ const createPopup = (ad) => {
 
   const getPhotos = function() {
     adElement.querySelector('.popup__photos').innerHTML = '';
-    ad.photos.forEach((element) => {
+    ad.offer.photos.forEach((element) => {
       const photosItem = document.createElement('img');
       photosItem.src = element;
       photosItem.alt = 'Фотография жилья';
@@ -113,7 +114,7 @@ const createPopup = (ad) => {
 
   const fillPhotos = function() {
     const adPhotos = adElement.querySelector('.popup__photos');
-    if (ad['photos']) {
+    if (ad.offer['photos']) {
       getPhotos();
     } else {
       adPhotos.classList.add('hidden');
@@ -122,30 +123,30 @@ const createPopup = (ad) => {
   fillPhotos();
 
   const getRooms = function() {
-    if (ad.rooms === 1) {
-      return `${ad.rooms} комната`;
-    } else if (ad.rooms > 1 && ad.rooms < 5) {
-      return `${ad.rooms} комнаты`;
+    if (ad.offer.rooms === 1) {
+      return `${ad.offer.rooms} комната`;
+    } else if (ad.offer.rooms > 1 && ad.offer.rooms < 5) {
+      return `${ad.offer.rooms} комнаты`;
     } else {
-      return `${ad.rooms} комнат`;
+      return `${ad.offer.rooms} комнат`;
     }
   };
 
   const getGuests = function() {
-    if (ad.guests === 1) {
-      return `${ad.guests} гостя`;
+    if (ad.offer.guests === 1) {
+      return `${ad.offer.guests} гостя`;
     } else {
-      return `${ad.guests} гостей`;
+      return `${ad.offer.guests} гостей`;
     }
   };
 
   const fillCapacity = function() {
     const adCapacity = adElement.querySelector('.popup__text--capacity');
-    if (ad['rooms'] && ad['guests']) {
+    if (ad.offer['rooms'] && ad.offer['guests']) {
       return adCapacity.textContent = `${getRooms()} для ${getGuests()}`;
-    } else if (ad['rooms']) {
+    } else if (ad.offer['rooms']) {
       return adCapacity.textContent = getRooms();
-    } else if (ad['guests']) {
+    } else if (ad.offer['guests']) {
       adCapacity.textContent = `для ${getGuests()}`;
     } else {
       return adCapacity.classList.add('hidden');
@@ -155,10 +156,10 @@ const createPopup = (ad) => {
 
   const fillAvatar = function() {
     const adAvatar = adElement.querySelector('.popup__avatar');
-    if (ad['avatar']) {
-      adAvatar.src = ad.avatar;
+    if (ad.author['avatar']) {
+      adAvatar.src = ad.author.avatar;
     } else {
-      adAvatar.src = '../img/avatars/default.png';
+      adAvatar.src = './img/avatars/default.png';
     }
   };
   fillAvatar();

@@ -1,3 +1,5 @@
+import { sendData } from './fetch-data.js';
+
 const adForm = document.querySelector('.ad-form');
 const titleInput = adForm.querySelector('#title');
 const titleMinLength = titleInput.getAttribute('minLength');
@@ -91,4 +93,20 @@ const validateForm = function() {
   priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
 };
 
-export { validateForm, disableForm, activateForm };
+const resetForm = () => {
+  adForm.reset();
+};
+
+const setUserFormSubmit = function(onSuccess, onFail ) {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => onFail(),
+      new FormData(evt.target),
+    );
+  });
+};
+
+export { validateForm, disableForm, activateForm, setUserFormSubmit, resetForm };

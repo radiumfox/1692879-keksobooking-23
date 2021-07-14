@@ -3,7 +3,6 @@ import { createPopup } from './popup.js';
 
 disableForm();
 
-const resetButton = document.querySelector('.ad-form__reset');
 const addressInput = document.querySelector('#address');
 const NUMBER_OF_DECIMALS = 5;
 
@@ -60,19 +59,18 @@ const pinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-resetButton.addEventListener('click', () => {
+const resetMap = function() {
   mainPinMarker.setLatLng(
     DEFAULT_LOCATION,
   );
-
   map.setView(DEFAULT_LOCATION, DEFAULT_ZOOM);
   addressInput.value = `${latInitial}, ${lngInitial}`;
-});
+};
 
 const markersGroup = L.layerGroup().addTo(map);
 
 const createMarker = (ad) => {
-  const {lat, lng} = ad.address;
+  const {lat, lng} = ad.location;
 
   const icon = pinIcon;
 
@@ -97,4 +95,4 @@ const createMarker = (ad) => {
   return marker;
 };
 
-export { createMarker };
+export { createMarker, resetMap };
