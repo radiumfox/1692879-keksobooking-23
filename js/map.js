@@ -63,9 +63,8 @@ const resetMap = function() {
   mainPinMarker.setLatLng(
     DEFAULT_LOCATION,
   );
-  addressInput.value = `${latInitial}, ${lngInitial}`;
   map.setView(DEFAULT_LOCATION, DEFAULT_ZOOM);
-  addressInput.value = `${DEFAULT_LOCATION.lat}, ${DEFAULT_LOCATION.lng}`;
+  addressInput.value = `${latInitial}, ${lngInitial}`;
 };
 
 const markersGroup = L.layerGroup().addTo(map);

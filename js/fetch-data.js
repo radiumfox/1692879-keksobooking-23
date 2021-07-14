@@ -6,8 +6,9 @@ const getData = (onSuccess, onFail) => () => fetch (
   .then((response) => {
     if (response.ok) {
       return response.json();
+    } else {
+      throw new Error(`${response.status} - ${response.statusText}`);
     }
-    throw new Error(`При загрузке данных произошла ошибка: ${response.status} - ${response.statusText}`);
   })
   .then((data) => {
     onSuccess(data);
@@ -31,8 +32,8 @@ const sendData = (onSuccess, onFail, body) => {
         onFail('Не удалось отправить форму. Попробуйте ещё раз');
       }
     })
-    .catch(() => {
-      onFail('Не удалось отправить форму. Попробуйте ещё раз');
+    .catch((err) => {
+      onFail(err);
     });
 };
 

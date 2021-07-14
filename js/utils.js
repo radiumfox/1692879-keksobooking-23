@@ -25,34 +25,22 @@ const createRandomArray = function(oldArray) {
   return newArray;
 };
 
-const ALERT_SHOW_TIME = 5000;
-
 const alertErrorMessage = (err) => {
+  const alertErrorTemplate = document.querySelector('#alert').content.querySelector('.alert');
+  const errorMessage = alertErrorTemplate.cloneNode(true);
+  const errorMessageContent = errorMessage.querySelector('.alert__message');
+  const closeButton = errorMessage.querySelector('.alert__button');
+  errorMessageContent.innerHTML = `${err}`;
   const map = document.querySelector('.map__canvas');
-  const messageBox = document.createElement('div');
-  const messageContent = document.createElement('p');
-  messageContent.innerHTML = `Ошибка: <br> ${err}`;
-  messageContent.style.fontSize = '25px';
-  messageContent.style.color = 'white';
-  messageContent.style.wordWrap = 'break-word';
-  messageBox.style.width = '500px';
-  messageBox.style.height = 'auto';
-  messageBox.style.position ='absolute';
-  messageBox.style.zIndex = '1100';
-  messageBox.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
-  messageBox.style.left = '25%';
-  messageBox.style.top = '25%';
-  messageBox.style.textAlign = 'center';
-  messageBox.appendChild(messageContent);
-  map.appendChild(messageBox);
-  setTimeout(() => {
-    messageBox.remove();
-  }, ALERT_SHOW_TIME);
+  map.appendChild(errorMessage);
+  closeButton.addEventListener('click', () => {
+    errorMessage.remove();
+  });
 };
 
 const body = document.querySelector('body');
 
-const createSuccessMessage = () => {
+const showSuccessMessage = () => {
   const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
   const successMessage = successMessageTemplate.cloneNode(true);
   body.appendChild(successMessage);
@@ -66,7 +54,7 @@ const createSuccessMessage = () => {
   });
 };
 
-const createFailMessage = () => {
+const showFailMessage = () => {
   const failMessageTemplate = document.querySelector('#error').content.querySelector('.error');
   const failMessage = failMessageTemplate.cloneNode(true);
   body.appendChild(failMessage);
@@ -76,4 +64,4 @@ const createFailMessage = () => {
   });
 };
 
-export { getRandomInteger, getRandomFloat, createRandomArray, alertErrorMessage, createSuccessMessage, createFailMessage };
+export { getRandomInteger, getRandomFloat, createRandomArray, alertErrorMessage, showSuccessMessage, showFailMessage };

@@ -1007,6 +1007,42 @@ fieldset {
   opacity: 0.6;
 }
 
+/**
+ * Сообщение об ошибке
+ */
+
+.alert {
+  position: absolute;
+  z-index: 1100;
+
+  padding: 20px;
+
+  top: 25%;
+  left: 25%;
+
+  width: 500px;
+  height: auto;
+
+  text-align: center;
+
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.alert__message {
+  font-size: 25px;
+  color: white;
+  margin: 0 0 15px 0;
+}
+
+.alert__button {
+  font-size: 20px;
+
+  color: white;
+  background-color: red;
+
+  border: none;
+}
+
 .visually-hidden {
   position: absolute;
 

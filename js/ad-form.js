@@ -97,13 +97,13 @@ const resetForm = () => {
   adForm.reset();
 };
 
-const setUserFormSubmit = function(onSuccessMessage, onSuccessAction1, onSuccessAction2, onFailAction ) {
+const setUserFormSubmit = function(onSuccess, onFail ) {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 
     sendData(
-      () => { onSuccessMessage(); onSuccessAction1(); onSuccessAction2(); },
-      () => onFailAction(),
+      () => onSuccess(),
+      () => onFail(),
       new FormData(evt.target),
     );
   });
