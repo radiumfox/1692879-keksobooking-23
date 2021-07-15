@@ -64,4 +64,13 @@ const showFailMessage = () => {
   });
 };
 
-export { getRandomInteger, getRandomFloat, createRandomArray, alertErrorMessage, showSuccessMessage, showFailMessage };
+const debounce = function (callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+};
+
+export { getRandomInteger, getRandomFloat, createRandomArray, alertErrorMessage, showSuccessMessage, showFailMessage, debounce };
