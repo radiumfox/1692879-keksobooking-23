@@ -5,13 +5,12 @@ disableForm();
 
 const addressInput = document.querySelector('#address');
 const NUMBER_OF_DECIMALS = 5;
+const DEFAULT_ZOOM = 13;
 
 const DEFAULT_LOCATION = {
   lat: 35.6656575,
   lng: 139.7610263,
 };
-
-const DEFAULT_ZOOM = 13;
 
 const map = L.map('map-canvas')
   .on('load', () => {
@@ -59,7 +58,7 @@ const pinIcon = L.icon({
   iconAnchor: [20, 40],
 });
 
-const resetMap = function() {
+const resetMap = () => {
   mainPinMarker.setLatLng(
     DEFAULT_LOCATION,
   );

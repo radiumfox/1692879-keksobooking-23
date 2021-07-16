@@ -7,6 +7,13 @@ import { debounce } from './utils.js';
 
 validateForm();
 const RENDER_DELAY = 500;
+const resetButton = document.querySelector('.ad-form__reset');
+
+const onSuccess = () => {
+  showSuccessMessage();
+  resetForm();
+  resetMap();
+};
 
 const fetchOffers = getData (
   (data) => {
@@ -22,15 +29,7 @@ const fetchOffers = getData (
 
 fetchOffers();
 
-const onSuccess = () => {
-  showSuccessMessage();
-  resetForm();
-  resetMap();
-};
-
 setUserFormSubmit( onSuccess, showFailMessage );
-
-const resetButton = document.querySelector('.ad-form__reset');
 
 resetButton.addEventListener('click', (evt) => {
   evt.preventDefault();

@@ -13,8 +13,15 @@ const checkout = adForm.querySelector('#timeout');
 const formFieldsets = adForm.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapControls = mapFilter.querySelectorAll('select');
+const DEFAULT_PRICES = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
 
-const disableForm = function() {
+const disableForm = () => {
   adForm.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
   [formFieldsets].map((element) => {
@@ -25,7 +32,7 @@ const disableForm = function() {
   });
 };
 
-const activateForm = function() {
+const activateForm = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilter.classList.remove('map__filters--disabled');
   [formFieldsets].map((element) => {
@@ -36,15 +43,7 @@ const activateForm = function() {
   });
 };
 
-const DEFAULT_PRICES = {
-  'bungalow': 0,
-  'flat': 1000,
-  'hotel': 3000,
-  'house': 5000,
-  'palace': 10000,
-};
-
-const checkTitle = function() {
+const checkTitle = () => {
   const titleLength = titleInput.value.length;
   if (titleLength < titleMinLength){
     titleInput.setCustomValidity(`Еще ${titleMinLength - titleLength} символов`);
@@ -54,7 +53,7 @@ const checkTitle = function() {
   titleInput.reportValidity();
 };
 
-const checkPrice = function() {
+const checkPrice = () => {
   const minPrice = DEFAULT_PRICES[typeInput.value];
   if (priceInput.value < minPrice) {
     priceInput.setCustomValidity(`Цена за ночь не может быть ниже ${minPrice} р.`);
@@ -66,7 +65,7 @@ const checkPrice = function() {
   priceInput.reportValidity();
 };
 
-const checkCapacity = function() {
+const checkCapacity = () => {
   const numberOfGuests = {
     '1':[1],
     '2':[1, 2],
@@ -81,11 +80,11 @@ const checkCapacity = function() {
   capacity.reportValidity();
 };
 
-const checkTime = function() {
+const checkTime = () => {
   checkout.value = checkin.value;
 };
 
-const validateForm = function() {
+const validateForm = () => {
   titleInput.addEventListener('input', checkTitle);
   priceInput.addEventListener('input', checkPrice);
   capacity.addEventListener('input', checkCapacity);
@@ -97,7 +96,7 @@ const resetForm = () => {
   adForm.reset();
 };
 
-const setUserFormSubmit = function(onSuccess, onFail ) {
+const setUserFormSubmit = (onSuccess, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
 

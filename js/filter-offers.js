@@ -6,33 +6,31 @@ const selectType = mapFilters.querySelector('#housing-type');
 const selectRooms = mapFilters.querySelector('#housing-rooms');
 const selectGuests = mapFilters.querySelector('#housing-guests');
 const selectFeatures = mapFilters.querySelector('.map__features');
-const selectedFeatures = [];
+let selectedFeatures = [];
 const featuresInputs = selectFeatures.querySelectorAll('input');
 const OFFER_QUANTITY = 10;
-const createdOffers = [];
+let createdOffers = [];
 
 const checkPrice = (element) => {
   const price = element.offer.price;
-  return ((selectPrice.value === 'middle') && (price >= 10000) && (price <= 50000)) ||
-    ((selectPrice.value === 'low') && (price<10000)) ||
-    ((selectPrice.value === 'high') && (price>50000)) ||
+  return (
+    selectPrice.value === 'middle' && price >= 10000 && price <= 50000) ||
+    (selectPrice.value === 'low' && price < 10000) ||
+    (selectPrice.value === 'high' && price > 50000) ||
     (selectPrice.value === 'any');
 };
 
 const checkHouseType = (element) =>
-  (selectType.value === element.offer.type) ||
-  (selectType.value === 'any');
+  (selectType.value === element.offer.type || selectType.value === 'any');
 
 const checkRoomsNumber = (element) =>
-  (+selectRooms.value === element.offer.rooms) ||
-  (selectRooms.value === 'any');
+  (+selectRooms.value === element.offer.rooms || selectRooms.value === 'any');
 
 const checkGuestsNumber = (element) =>
-  (+selectGuests.value === element.offer.guests) ||
-  (selectGuests.value === 'any');
+  (+selectGuests.value === element.offer.guests || selectGuests.value === 'any');
 
 const checkFeatures = (element) => {
-  selectedFeatures.length = 0;
+  selectedFeatures = [];
   let result = false;
   let counter = 0;
 
@@ -43,13 +41,10 @@ const checkFeatures = (element) => {
   });
   if (selectedFeatures.length === 0) {
     result = true;
-  }
-  else if (element.offer.features) {
+  } else if (element.offer.features) {
     selectedFeatures.forEach((feature) => {
-      if(element.offer.features.includes(feature)) {
+      if (element.offer.features.includes(feature)) {
         counter++;
-      } else {
-        counter;
       }
     });
     result = (counter === selectedFeatures.length);
@@ -65,10 +60,9 @@ const filterAll = (element) =>
   checkRoomsNumber(element);
 
 const showSimilarOffers = (similarOffers) => {
-  createdOffers.forEach((offer) => {offer.remove();
-  });
+  createdOffers.forEach((offer) => offer.remove());
 
-  createdOffers.length = 0;
+  createdOffers = [];
 
   similarOffers
     .filter(filterAll)
@@ -78,6 +72,6 @@ const showSimilarOffers = (similarOffers) => {
     });
 };
 
-const onFilterChange = (offers) =>  mapFilters.addEventListener ('change', offers);
+const onFilterChange = (offers) => mapFilters.addEventListener('change', offers);
 
 export { showSimilarOffers, onFilterChange };
