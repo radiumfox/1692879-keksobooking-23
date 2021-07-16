@@ -10,7 +10,7 @@ const createPopup = (ad) => {
   const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
   const adElement = cardTemplate.cloneNode(true);
 
-  const fillTitle = function() {
+  const fillTitle = () => {
     const adTitle = adElement.querySelector('.popup__title');
     if (ad.offer['title']) {
       adTitle.textContent = ad.offer.title;
@@ -20,7 +20,7 @@ const createPopup = (ad) => {
   };
   fillTitle();
 
-  const fillAddress = function() {
+  const fillAddress = () => {
     const adAddress = adElement.querySelector('.popup__text--address');
     if (ad.offer['address']) {
       adAddress.textContent = `${ad.offer.address}`;
@@ -30,17 +30,20 @@ const createPopup = (ad) => {
   };
   fillAddress();
 
-  const fillPrice = function() {
+  const fillPrice = () => {
     const adPrice = adElement.querySelector('.popup__text--price');
+    const span = adPrice.querySelector('span');
+    span.textContent = ' ₽/ночь';
     if (ad.offer['price']) {
-      adPrice.innerHTML = `${ad.offer.price} <span>₽/ночь</span>`;
+      adPrice.textContent = `${ad.offer.price}`;
+      adPrice.appendChild(span);
     } else {
       adPrice.classList.add('hidden');
     }
   };
   fillPrice();
 
-  const fillType = function() {
+  const fillType = () => {
     const adType = adElement.querySelector('.popup__type');
     if (ad.offer['type']) {
       adType.textContent = ad.offer.type;
@@ -50,7 +53,7 @@ const createPopup = (ad) => {
   };
   fillType();
 
-  const getCaptionByType = function(type) {
+  const getCaptionByType = (type) => {
     if (HOUSING_TYPES[type]) {
       return HOUSING_TYPES[type];
     } else {
@@ -59,7 +62,7 @@ const createPopup = (ad) => {
   };
 
   adElement.querySelector('.popup__type').textContent = getCaptionByType(ad.offer.type);
-  const fillDescription = function() {
+  const fillDescription = () => {
     const adDescription = adElement.querySelector('.popup__description');
     if (ad.offer['description']) {
       adDescription.textContent = ad.offer.description;
@@ -69,7 +72,7 @@ const createPopup = (ad) => {
   };
   fillDescription();
 
-  const fillTime = function() {
+  const fillTime = () => {
     const adTime = adElement.querySelector('.popup__text--time');
     if (ad.offer['checkin']) {
       adTime.textContent = `Заезд после ${ad.offer.checkin}, выезд до ${ad.offer.checkout}`;
@@ -79,7 +82,7 @@ const createPopup = (ad) => {
   };
   fillTime();
 
-  const getFeatures = function() {
+  const getFeatures = () => {
     adElement.querySelector('.popup__features').innerHTML = '';
     const currentModifiers = ad.offer.features.map((feature) => `popup__feature--${feature}`);
     currentModifiers.forEach((element) => {
@@ -90,7 +93,7 @@ const createPopup = (ad) => {
     });
   };
 
-  const fillFeatures = function() {
+  const fillFeatures = () => {
     const adFeatures = adElement.querySelector('.popup__features');
     if (ad.offer['features']) {
       getFeatures();
@@ -100,7 +103,7 @@ const createPopup = (ad) => {
   };
   fillFeatures();
 
-  const getPhotos = function() {
+  const getPhotos = () => {
     adElement.querySelector('.popup__photos').innerHTML = '';
     ad.offer.photos.forEach((element) => {
       const photosItem = document.createElement('img');
@@ -112,7 +115,7 @@ const createPopup = (ad) => {
     });
   };
 
-  const fillPhotos = function() {
+  const fillPhotos = () => {
     const adPhotos = adElement.querySelector('.popup__photos');
     if (ad.offer['photos']) {
       getPhotos();
@@ -122,7 +125,7 @@ const createPopup = (ad) => {
   };
   fillPhotos();
 
-  const getRooms = function() {
+  const getRooms = () => {
     if (ad.offer.rooms === 1) {
       return `${ad.offer.rooms} комната`;
     } else if (ad.offer.rooms > 1 && ad.offer.rooms < 5) {
@@ -132,7 +135,7 @@ const createPopup = (ad) => {
     }
   };
 
-  const getGuests = function() {
+  const getGuests = () => {
     if (ad.offer.guests === 1) {
       return `${ad.offer.guests} гостя`;
     } else {
@@ -140,7 +143,7 @@ const createPopup = (ad) => {
     }
   };
 
-  const fillCapacity = function() {
+  const fillCapacity = () => {
     const adCapacity = adElement.querySelector('.popup__text--capacity');
     if (ad.offer['rooms'] && ad.offer['guests']) {
       return adCapacity.textContent = `${getRooms()} для ${getGuests()}`;
@@ -154,7 +157,7 @@ const createPopup = (ad) => {
   };
   fillCapacity();
 
-  const fillAvatar = function() {
+  const fillAvatar = () => {
     const adAvatar = adElement.querySelector('.popup__avatar');
     if (ad.author['avatar']) {
       adAvatar.src = ad.author.avatar;

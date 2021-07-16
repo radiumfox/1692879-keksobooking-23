@@ -1,7 +1,7 @@
 import { getRandomInteger, createRandomArray, getRandomFloat } from './utils.js';
 import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS } from './ads-info.js';
 
-const createAuthor = function() {
+const createAuthor = () => {
   const avatarNumber = getRandomInteger(1, 11);
   if (avatarNumber < 10) {
     return {
@@ -14,19 +14,19 @@ const createAuthor = function() {
   }
 };
 
-const createOffer = function() {
+const createOffer = () => {
   const houseType = TYPE_OF_HOUSE[getRandomInteger(0, TYPE_OF_HOUSE.length - 1)];
   const acсomodationTime = ACCOMODATION_TIME[getRandomInteger(0, ACCOMODATION_TIME.length - 1)];
 
   const lat = getRandomFloat(35.65000, 35.70000, 5);
   const lng = getRandomFloat(139.70000, 139.80000, 5);
 
-  const getRoomsNumber = function() {
+  const getRoomsNumber = () => {
     const roomsNumber = getRandomInteger(1, 10);
     return roomsNumber;
   };
 
-  const getDescriptionByType = function(type) {
+  const getDescriptionByType = (type) => {
     if (DESCRIPTIONS[type]) {
       return DESCRIPTIONS[type];
     } else {
