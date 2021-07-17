@@ -1,4 +1,5 @@
 import { createPopup } from './popup.js';
+import { activatePage, activateFilters } from './ad-form.js';
 
 const addressInput = document.querySelector('#address');
 const NUMBER_OF_DECIMALS = 5;
@@ -11,9 +12,10 @@ const DEFAULT_LOCATION = {
 
 const map = L.map('map-canvas');
 
-const loadMap = (onMapLoad) =>
+const loadMap = (onLoad) =>
   map.on('load', () => {
-    onMapLoad;
+    onLoad();
+    activatePage(activateFilters);
   })
     .setView(
       DEFAULT_LOCATION, DEFAULT_ZOOM);

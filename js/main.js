@@ -10,10 +10,6 @@ const resetButton = document.querySelector('.ad-form__reset');
 
 disablePage(disableFilters);
 
-loadMap(activatePage(activateFilters));
-
-validateForm();
-
 const onSuccess = () => {
   showSuccessMessage();
   resetForm();
@@ -33,12 +29,20 @@ const fetchOffers = getData (
     alertErrorMessage(err);
   });
 
-fetchOffers();
 
-setUserFormSubmit( onSuccess, showFailMessage );
+const onMapLoad = () => {
+  validateForm();
+  activatePage(activateFilters);
+  fetchOffers();
+  setUserFormSubmit( onSuccess, showFailMessage );
 
-resetButton.addEventListener('click', (evt) => {
-  evt.preventDefault();
-  resetForm();
-  resetMap();
-});
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetForm();
+    resetMap();
+  });
+};
+
+loadMap(onMapLoad);
+
+
