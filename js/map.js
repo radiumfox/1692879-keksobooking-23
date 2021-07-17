@@ -1,7 +1,4 @@
-import { activateForm, disableForm } from './ad-form.js';
 import { createPopup } from './popup.js';
-
-disableForm();
 
 const addressInput = document.querySelector('#address');
 const NUMBER_OF_DECIMALS = 5;
@@ -12,12 +9,14 @@ const DEFAULT_LOCATION = {
   lng: 139.7610263,
 };
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    activateForm();
+const map = L.map('map-canvas');
+
+const loadMap = (onMapLoad) =>
+  map.on('load', () => {
+    onMapLoad;
   })
-  .setView(
-    DEFAULT_LOCATION, DEFAULT_ZOOM);
+    .setView(
+      DEFAULT_LOCATION, DEFAULT_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -94,4 +93,4 @@ const createMarker = (ad) => {
   return marker;
 };
 
-export { createMarker, resetMap };
+export { createMarker, resetMap, loadMap };

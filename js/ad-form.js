@@ -13,6 +13,7 @@ const checkout = adForm.querySelector('#timeout');
 const formFieldsets = adForm.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapControls = mapFilter.querySelectorAll('select');
+const inputs = adForm.querySelectorAll('input');
 const DEFAULT_PRICES = {
   'bungalow': 0,
   'flat': 1000,
@@ -21,26 +22,34 @@ const DEFAULT_PRICES = {
   'palace': 10000,
 };
 
-const disableForm = () => {
-  adForm.classList.add('ad-form--disabled');
+const disableFilters = () => {
   mapFilter.classList.add('map__filters--disabled');
-  [formFieldsets].map((element) => {
-    element.disabled = true;
-  });
   [mapControls].map((element) => {
     element.disabled = true;
   });
 };
 
-const activateForm = () => {
-  adForm.classList.remove('ad-form--disabled');
-  mapFilter.classList.remove('map__filters--disabled');
+const disablePage = (cb) => {
+  adForm.classList.add('ad-form--disabled');
   [formFieldsets].map((element) => {
-    element.disabled = false;
+    element.disabled = true;
   });
+  cb();
+};
+
+const activateFilters = () => {
+  mapFilter.classList.remove('map__filters--disabled');
   [mapControls].map((element) => {
     element.disabled = false;
   });
+};
+
+const activatePage = (cb) => {
+  adForm.classList.remove('ad-form--disabled');
+  [formFieldsets].map((element) => {
+    element.disabled = false;
+  });
+  cb();
 };
 
 const checkTitle = () => {
@@ -75,20 +84,25 @@ const checkCapacity = () => {
   if (numberOfGuests[roomNumber.value].includes(Number(capacity.value))) {
     capacity.setCustomValidity('');
   } else {
-    capacity.setCustomValidity('Число гостей не должно превышать число комнат');
+    capacity.setCustomValidity('Неверно введено число гостей');
   }
   capacity.reportValidity();
 };
 
-const checkTime = () => {
+const checkTimeIn = () => {
   checkout.value = checkin.value;
+};
+
+const checkTimeOut = () => {
+  checkin.value = checkout.value;
 };
 
 const validateForm = () => {
   titleInput.addEventListener('input', checkTitle);
   priceInput.addEventListener('input', checkPrice);
   capacity.addEventListener('input', checkCapacity);
-  checkin.addEventListener('change', checkTime);
+  checkin.addEventListener('change', checkTimeIn);
+  checkout.addEventListener('change', checkTimeOut);
   priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
 };
 
@@ -99,6 +113,11 @@ const resetForm = () => {
 const setUserFormSubmit = (onSuccess, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
+    inputs.forEach((input) => {
+      if (input.checkValidity() === false) {
+        input.classList.add('invalid-data');
+      }
+    });
 
     sendData(
       () => onSuccess(),
@@ -108,4 +127,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { validateForm, disableForm, activateForm, setUserFormSubmit, resetForm };
+export { validateForm, disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm };

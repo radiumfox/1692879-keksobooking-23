@@ -1069,3 +1069,6 @@ fieldset {
   border: 1px solid red;
 }
 
+.invalid-data {
+  outline: 1px solid red;
+};
