@@ -108,4 +108,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { validateForm, disableForm, activateForm, setUserFormSubmit, resetForm };
+export { validateForm, disableForm, activateForm, setUserFormSubmit, resetForm, adForm };

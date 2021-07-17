@@ -4,6 +4,7 @@ import  { getData } from './fetch-data.js';
 import { alertErrorMessage, showSuccessMessage, showFailMessage } from './utils.js';
 import { showSimilarOffers, onFilterChange } from './filter-offers.js';
 import { debounce } from './utils.js';
+import './photos.js';
 
 validateForm();
 const RENDER_DELAY = 500;
