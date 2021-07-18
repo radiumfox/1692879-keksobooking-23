@@ -29,9 +29,8 @@ const createOffer = () => {
   const getDescriptionByType = (type) => {
     if (DESCRIPTIONS[type]) {
       return DESCRIPTIONS[type];
-    } else {
-      return '';
     }
+    return '';
   };
 
   return {

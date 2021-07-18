@@ -1,7 +1,7 @@
-import { validateForm, setUserFormSubmit, resetForm, disablePage, activatePage, disableFilters, activateFilters } from './ad-form.js';
+import { validateForm, setUserFormSubmit, resetForm, disablePage, disableFilters } from './ad-form.js';
 import { resetMap, loadMap } from './map.js';
 import  { getData } from './fetch-data.js';
-import { alertErrorMessage, showSuccessMessage, showFailMessage } from './utils.js';
+import { alertErrorMessage, showSuccessMessage, showFailMessage } from './message.js';
 import { showSimilarOffers, onFilterChange } from './filter-offers.js';
 import { debounce } from './utils.js';
 
@@ -29,10 +29,8 @@ const fetchOffers = getData (
     alertErrorMessage(err);
   });
 
-
 const onMapLoad = () => {
   validateForm();
-  activatePage(activateFilters);
   fetchOffers();
   setUserFormSubmit( onSuccess, showFailMessage );
 
@@ -44,5 +42,3 @@ const onMapLoad = () => {
 };
 
 loadMap(onMapLoad);
-
-

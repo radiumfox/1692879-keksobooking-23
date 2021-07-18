@@ -14,8 +14,8 @@ const map = L.map('map-canvas');
 
 const loadMap = (onLoad) =>
   map.on('load', () => {
-    onLoad();
     activatePage(activateFilters);
+    onLoad();
   })
     .setView(
       DEFAULT_LOCATION, DEFAULT_ZOOM);
