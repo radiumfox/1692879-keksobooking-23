@@ -1,4 +1,4 @@
-import { validateForm, setUserFormSubmit, resetForm, disablePage, disableFilters } from './ad-form.js';
+import { setUserFormSubmit, resetForm, disablePage, disableFilters } from './ad-form.js';
 import { resetMap, loadMap } from './map.js';
 import  { getData } from './fetch-data.js';
 import { alertErrorMessage, showSuccessMessage, showFailMessage } from './message.js';
@@ -30,9 +30,8 @@ const fetchOffers = getData (
   });
 
 const onMapLoad = () => {
-  validateForm();
   fetchOffers();
-  setUserFormSubmit( onSuccess, showFailMessage );
+  setUserFormSubmit(onSuccess, showFailMessage);
 
   resetButton.addEventListener('click', (evt) => {
     evt.preventDefault();

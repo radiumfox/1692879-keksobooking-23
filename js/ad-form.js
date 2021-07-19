@@ -37,12 +37,12 @@ const disableFilters = () => {
   }
 };
 
-const disablePage = (cb) => {
+const disablePage = (filtersInactivator) => {
   adForm.classList.add('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets[index].setAttribute('disabled', 'disabled');
   }
-  cb();
+  filtersInactivator();
 };
 
 const activateFilters = () => {
@@ -52,12 +52,12 @@ const activateFilters = () => {
   }
 };
 
-const activatePage = (cb) => {
+const activatePage = (filtersEnabler) => {
   adForm.classList.remove('ad-form--disabled');
   for (let index = 0; index < formFieldsets.length; index++) {
     formFieldsets[index].removeAttribute('disabled');
   }
-  cb();
+  filtersEnabler();
 };
 
 const checkTitle = () => {
@@ -99,13 +99,23 @@ const checkTimeOut = () => {
   checkin.value = checkout.value;
 };
 
+priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
+
+titleInput.addEventListener('input', checkTitle);
+priceInput.addEventListener('input', checkPrice);
+capacity.addEventListener('input', checkCapacity);
+checkin.addEventListener('change', checkTimeIn);
+checkout.addEventListener('change', checkTimeOut);
+
 const validateForm = () => {
-  titleInput.addEventListener('input', checkTitle);
-  priceInput.addEventListener('input', checkPrice);
-  capacity.addEventListener('input', checkCapacity);
-  checkin.addEventListener('change', checkTimeIn);
-  checkout.addEventListener('change', checkTimeOut);
-  priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
+  let isFormValid = true;
+  for (let index = 0; index < inputs.length; index++) {
+    if (inputs[index].checkValidity() === false) {
+      inputs[index].classList.add('invalid-data');
+      isFormValid = false;
+    }
+  }
+  return isFormValid;
 };
 
 const resetForm = () => {
@@ -115,18 +125,16 @@ const resetForm = () => {
 const setUserFormSubmit = (onSuccess, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    inputs.forEach((input) => {
-      if (input.checkValidity() === false) {
-        input.classList.add('invalid-data');
-      }
-    });
+    const valid = validateForm();
 
-    sendData(
-      () => onSuccess(),
-      () => onFail(),
-      new FormData(evt.target),
-    );
+    if (valid) {
+      sendData(
+        () => onSuccess(),
+        () => onFail(),
+        new FormData(evt.target),
+      );
+    }
   });
 };
 
-export { validateForm, disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm };
+export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm };

@@ -14,7 +14,7 @@ const removeMessage = () => {
   const successMessage = document.querySelector('.success');
   const failMessage = document.querySelector('.error');
 
-  if(successMessage) {
+  if (successMessage) {
     successMessage.remove();
   } else if (failMessage) {
     failMessage.remove();
