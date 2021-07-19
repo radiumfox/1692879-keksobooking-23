@@ -4,7 +4,6 @@ const VALID_EXTENSIONS = [
   'jpg',
   'jpeg',
   'png',
-  'gif',
 ];
 
 const avatarInput = adForm.querySelector('#avatar');
@@ -33,11 +32,11 @@ const checkFileType = (photo, input) => {
   }
 };
 
-avatarInput.addEventListener('change', ()=> {
+avatarInput.addEventListener('change', () => {
   checkFileType(avatarPreview, avatarInput);
 });
 
-photosInput.addEventListener('change', ()=> {
+photosInput.addEventListener('change', () => {
   checkFileType(photoPreview, photosInput);
 });
 

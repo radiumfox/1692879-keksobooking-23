@@ -130,17 +130,15 @@ const createPopup = (ad) => {
       return `${ad.offer.rooms} комната`;
     } else if (ad.offer.rooms > 1 && ad.offer.rooms < 5) {
       return `${ad.offer.rooms} комнаты`;
-    } else {
-      return `${ad.offer.rooms} комнат`;
     }
+    return `${ad.offer.rooms} комнат`;
   };
 
   const getGuests = () => {
     if (ad.offer.guests === 1) {
       return `${ad.offer.guests} гостя`;
-    } else {
-      return `${ad.offer.guests} гостей`;
     }
+    return `${ad.offer.guests} гостей`;
   };
 
   const fillCapacity = () => {
@@ -151,9 +149,8 @@ const createPopup = (ad) => {
       return adCapacity.textContent = getRooms();
     } else if (ad.offer['guests']) {
       adCapacity.textContent = `для ${getGuests()}`;
-    } else {
-      return adCapacity.classList.add('hidden');
     }
+    return adCapacity.classList.add('hidden');
   };
   fillCapacity();
 

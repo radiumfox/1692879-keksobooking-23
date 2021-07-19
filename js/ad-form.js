@@ -13,6 +13,7 @@ const checkout = adForm.querySelector('#timeout');
 const formFieldsets = adForm.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapControls = mapFilter.querySelectorAll('select');
+
 const DEFAULT_PRICES = {
   'bungalow': 0,
   'flat': 1000,
@@ -21,26 +22,41 @@ const DEFAULT_PRICES = {
   'palace': 10000,
 };
 
-const disableForm = () => {
-  adForm.classList.add('ad-form--disabled');
-  mapFilter.classList.add('map__filters--disabled');
-  [formFieldsets].map((element) => {
-    element.disabled = true;
-  });
-  [mapControls].map((element) => {
-    element.disabled = true;
-  });
+const NUMBER_OF_GUESTS = {
+  '1':[1],
+  '2':[1, 2],
+  '3':[1, 2, 3],
+  '100':[0],
 };
 
-const activateForm = () => {
-  adForm.classList.remove('ad-form--disabled');
+const disableFilters = () => {
+  mapFilter.classList.add('map__filters--disabled');
+  for (let index = 0; index < mapControls.length; index++) {
+    mapControls[index].setAttribute('disabled', 'disabled');
+  }
+};
+
+const disablePage = (filtersInactivator) => {
+  adForm.classList.add('ad-form--disabled');
+  for (let index = 0; index < formFieldsets.length; index++) {
+    formFieldsets[index].setAttribute('disabled', 'disabled');
+  }
+  filtersInactivator();
+};
+
+const activateFilters = () => {
   mapFilter.classList.remove('map__filters--disabled');
-  [formFieldsets].map((element) => {
-    element.disabled = false;
-  });
-  [mapControls].map((element) => {
-    element.disabled = false;
-  });
+  for (let index = 0; index < mapControls.length; index++) {
+    mapControls[index].removeAttribute('disabled');
+  }
+};
+
+const activatePage = (filtersEnabler) => {
+  adForm.classList.remove('ad-form--disabled');
+  for (let index = 0; index < formFieldsets.length; index++) {
+    formFieldsets[index].removeAttribute('disabled');
+  }
+  filtersEnabler();
 };
 
 const checkTitle = () => {
@@ -66,31 +82,29 @@ const checkPrice = () => {
 };
 
 const checkCapacity = () => {
-  const numberOfGuests = {
-    '1':[1],
-    '2':[1, 2],
-    '3':[1, 2, 3],
-    '100':[0],
-  };
-  if (numberOfGuests[roomNumber.value].includes(Number(capacity.value))) {
+  if (NUMBER_OF_GUESTS[roomNumber.value].includes(Number(capacity.value))) {
     capacity.setCustomValidity('');
   } else {
-    capacity.setCustomValidity('Число гостей не должно превышать число комнат');
+    capacity.setCustomValidity('Неверно введено число гостей');
   }
   capacity.reportValidity();
 };
 
-const checkTime = () => {
+const checkTimeIn = () => {
   checkout.value = checkin.value;
 };
 
-const validateForm = () => {
-  titleInput.addEventListener('input', checkTitle);
-  priceInput.addEventListener('input', checkPrice);
-  capacity.addEventListener('input', checkCapacity);
-  checkin.addEventListener('change', checkTime);
-  priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
+const checkTimeOut = () => {
+  checkin.value = checkout.value;
 };
+
+priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
+
+titleInput.addEventListener('input', checkTitle);
+priceInput.addEventListener('input', checkPrice);
+capacity.addEventListener('input', checkCapacity);
+checkin.addEventListener('change', checkTimeIn);
+checkout.addEventListener('change', checkTimeOut);
 
 const resetForm = () => {
   adForm.reset();
@@ -108,4 +122,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { validateForm, disableForm, activateForm, setUserFormSubmit, resetForm, adForm };
+export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm, adForm };
