@@ -62,6 +62,14 @@ const showFailMessage = () => {
   closeButton.addEventListener('click', () => {
     failMessage.remove();
   });
+  window.addEventListener('click', () => {
+    failMessage.remove();
+  });
+  window.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      failMessage.remove();
+    }
+  });
 };
 
 const debounce = (callback, timeoutDelay) => {
