@@ -583,6 +583,13 @@ fieldset {
   border-radius: 5px;
 }
 
+.ad-form__photo--preview {
+  height: 70px;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .ad-form__element--submit {
   -ms-flex-preferred-size: 100%;
       flex-basis: 100%;
@@ -1068,7 +1075,3 @@ fieldset {
 .invalid {
   border: 1px solid red;
 }
-
-.invalid-data {
-  box-shadow: 0 0 2px 2px #ff0000;
-};

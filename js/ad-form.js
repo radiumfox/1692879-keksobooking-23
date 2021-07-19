@@ -13,7 +13,6 @@ const checkout = adForm.querySelector('#timeout');
 const formFieldsets = adForm.querySelectorAll('fieldset');
 const mapFilter = document.querySelector('.map__filters');
 const mapControls = mapFilter.querySelectorAll('select');
-const inputs = adForm.querySelectorAll('input');
 
 const DEFAULT_PRICES = {
   'bungalow': 0,
@@ -107,17 +106,6 @@ capacity.addEventListener('input', checkCapacity);
 checkin.addEventListener('change', checkTimeIn);
 checkout.addEventListener('change', checkTimeOut);
 
-const validateForm = () => {
-  let isFormValid = true;
-  for (let index = 0; index < inputs.length; index++) {
-    if (inputs[index].checkValidity() === false) {
-      inputs[index].classList.add('invalid-data');
-      isFormValid = false;
-    }
-  }
-  return isFormValid;
-};
-
 const resetForm = () => {
   adForm.reset();
 };
@@ -125,16 +113,13 @@ const resetForm = () => {
 const setUserFormSubmit = (onSuccess, onFail) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const valid = validateForm();
 
-    if (valid) {
-      sendData(
-        () => onSuccess(),
-        () => onFail(),
-        new FormData(evt.target),
-      );
-    }
+    sendData(
+      () => onSuccess(),
+      () => onFail(),
+      new FormData(evt.target),
+    );
   });
 };
 
-export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm };
+export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm, adForm };

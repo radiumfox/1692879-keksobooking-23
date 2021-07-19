@@ -4,6 +4,7 @@ import  { getData } from './fetch-data.js';
 import { alertErrorMessage, showSuccessMessage, showFailMessage } from './message.js';
 import { showSimilarOffers, onFilterChange } from './filter-offers.js';
 import { debounce } from './utils.js';
+import './photos.js';
 
 const RENDER_DELAY = 500;
 const resetButton = document.querySelector('.ad-form__reset');
