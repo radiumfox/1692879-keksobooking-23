@@ -18,7 +18,7 @@ const getData = (onSuccess, onFail) => () => fetch (
   });
 
 const sendData = (onSuccess, onFail, body) => {
-  fetch ( BASE_URL, {
+  fetch (BASE_URL, {
     method: 'POST',
     body,
   })

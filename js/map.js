@@ -17,8 +17,8 @@ const loadMap = (onLoad) =>
     activatePage(activateFilters);
     onLoad();
   })
-    .setView(
-      DEFAULT_LOCATION, DEFAULT_ZOOM);
+    .setView(DEFAULT_LOCATION,
+      DEFAULT_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

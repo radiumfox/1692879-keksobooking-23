@@ -23,10 +23,10 @@ const DEFAULT_PRICES = {
 };
 
 const NUMBER_OF_GUESTS = {
-  '1':[1],
-  '2':[1, 2],
-  '3':[1, 2, 3],
-  '100':[0],
+  '1': [1],
+  '2': [1, 2],
+  '3': [1, 2, 3],
+  '100': [0],
 };
 
 const disableFilters = () => {
@@ -122,4 +122,4 @@ const setUserFormSubmit = (onSuccess, onFail) => {
   });
 };
 
-export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm, adForm };
+export { disablePage, disableFilters, activatePage, activateFilters, setUserFormSubmit, resetForm };

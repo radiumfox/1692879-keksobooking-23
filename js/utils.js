@@ -1,5 +1,3 @@
-const body = document.querySelector('body');
-
 const getRandomInteger = (number1, number2) => {
   const min = Math.ceil(Math.min(Math.abs(number1), Math.abs(number2)));
   const max = Math.floor(Math.max(Math.abs(number1), Math.abs(number2)));
@@ -27,51 +25,6 @@ const createRandomArray = (oldArray) => {
   return newArray;
 };
 
-const alertErrorMessage = (err) => {
-  const alertErrorTemplate = document.querySelector('#alert').content.querySelector('.alert');
-  const errorMessage = alertErrorTemplate.cloneNode(true);
-  const errorMessageContent = errorMessage.querySelector('.alert__message');
-  const closeButton = errorMessage.querySelector('.alert__button');
-  const map = document.querySelector('.map__canvas');
-  errorMessageContent.innerHTML = `${err}`;
-  map.appendChild(errorMessage);
-  closeButton.addEventListener('click', () => {
-    errorMessage.remove();
-  });
-};
-
-const showSuccessMessage = () => {
-  const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-  const successMessage = successMessageTemplate.cloneNode(true);
-  body.appendChild(successMessage);
-  window.addEventListener('click', () => {
-    successMessage.remove();
-  });
-  window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      successMessage.remove();
-    }
-  });
-};
-
-const showFailMessage = () => {
-  const failMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-  const failMessage = failMessageTemplate.cloneNode(true);
-  const closeButton = failMessage.querySelector('.error__button');
-  body.appendChild(failMessage);
-  closeButton.addEventListener('click', () => {
-    failMessage.remove();
-  });
-  window.addEventListener('click', () => {
-    failMessage.remove();
-  });
-  window.addEventListener('keydown', (evt) => {
-    if (evt.key === 'Escape') {
-      failMessage.remove();
-    }
-  });
-};
-
 const debounce = (callback, timeoutDelay) => {
   let timeoutId;
 
@@ -81,4 +34,4 @@ const debounce = (callback, timeoutDelay) => {
   };
 };
 
-export { getRandomInteger, getRandomFloat, createRandomArray, alertErrorMessage, showSuccessMessage, showFailMessage, debounce };
+export { getRandomInteger, getRandomFloat, createRandomArray, debounce };

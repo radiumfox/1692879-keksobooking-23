@@ -4,20 +4,24 @@ import  { getData } from './fetch-data.js';
 import { alertErrorMessage, showSuccessMessage, showFailMessage } from './message.js';
 import { showSimilarOffers, onFilterChange } from './filter-offers.js';
 import { debounce } from './utils.js';
-import './photos.js';
+import { resetPhotos, createAvatarPreview, createPhotoPreview } from './photos.js';
 
 const RENDER_DELAY = 500;
 const resetButton = document.querySelector('.ad-form__reset');
 
 disablePage(disableFilters);
 
+createAvatarPreview();
+createPhotoPreview();
+
 const onSuccess = () => {
   showSuccessMessage();
   resetForm();
   resetMap();
+  resetPhotos();
 };
 
-const fetchOffers = getData (
+const fetchOffers = getData(
   (data) => {
     showSimilarOffers(data);
     onFilterChange(

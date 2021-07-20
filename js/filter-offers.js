@@ -1,4 +1,4 @@
-import {createMarker} from './map.js';
+import { createMarker } from './map.js';
 
 const mapFilters = document.querySelector('.map__filters');
 const selectPrice = mapFilters.querySelector('#housing-price');

@@ -1,5 +1,5 @@
 import { getRandomInteger, createRandomArray, getRandomFloat } from './utils.js';
-import { TYPE_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIME, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS } from './ads-info.js';
+import { TYPES_OF_HOUSE, PHOTOS, FEATURES, ACCOMODATION_TIMES, SIMILAR_ADVERTISMENTS_COUNT, DESCRIPTIONS } from './ads-info.js';
 
 const createAuthor = () => {
   const avatarNumber = getRandomInteger(1, 11);
@@ -15,8 +15,8 @@ const createAuthor = () => {
 };
 
 const createOffer = () => {
-  const houseType = TYPE_OF_HOUSE[getRandomInteger(0, TYPE_OF_HOUSE.length - 1)];
-  const acсomodationTime = ACCOMODATION_TIME[getRandomInteger(0, ACCOMODATION_TIME.length - 1)];
+  const houseType = TYPES_OF_HOUSE[getRandomInteger(0, TYPES_OF_HOUSE.length - 1)];
+  const acсomodationTime = ACCOMODATION_TIMES[getRandomInteger(0, ACCOMODATION_TIMES.length - 1)];
 
   const lat = getRandomFloat(35.65000, 35.70000, 5);
   const lng = getRandomFloat(139.70000, 139.80000, 5);
@@ -52,4 +52,4 @@ const createAdvertisment = () => Object.assign({}, createAuthor(), createOffer()
 
 const createAdvertisments = () => new Array(SIMILAR_ADVERTISMENTS_COUNT).fill(null).map(() => createAdvertisment());
 
-export { createAuthor, createOffer, createAdvertisments };
+createAdvertisments();

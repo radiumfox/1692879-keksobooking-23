@@ -1,4 +1,3 @@
-const body = document.querySelector('body');
 const alertErrorTemplate = document.querySelector('#alert').content.querySelector('.alert');
 const alertMessage = alertErrorTemplate.cloneNode(true);
 const alertMessageContent = alertMessage.querySelector('.alert__message');
@@ -42,12 +41,13 @@ const onButtonPress = () => {
 };
 
 const alertErrorMessage = (err) => {
-  alertMessageContent.innerHTML = `${err}`;
+  alertMessageContent.textContent = `${err}`;
   map.appendChild(alertMessage);
   alertButton.addEventListener('click', onButtonPress);
 };
 
 const showSuccessMessage = () => {
+  const body = document.querySelector('body');
   const successMessage = successMessageTemplate.cloneNode(true);
   body.appendChild(successMessage);
   document.addEventListener('click', onPageClick);
@@ -55,6 +55,7 @@ const showSuccessMessage = () => {
 };
 
 const showFailMessage = () => {
+  const body = document.querySelector('body');
   const failMessage = failMessageTemplate.cloneNode(true);
   body.appendChild(failMessage);
   document.addEventListener('click', onPageClick);
