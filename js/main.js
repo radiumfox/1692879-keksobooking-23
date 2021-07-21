@@ -42,6 +42,7 @@ const onMapLoad = () => {
     evt.preventDefault();
     resetForm();
     resetMap();
+    resetPhotos();
   });
 };
 
