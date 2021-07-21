@@ -7,7 +7,7 @@ const failMessageTemplate = document.querySelector('#error').content.querySelect
 const errorButton = failMessageTemplate.querySelector('.error__button');
 const map = document.querySelector('.map__canvas');
 
-const isEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
+const detectEscEvent = (evt) => evt.key === 'Escape' || evt.key === 'Esc';
 
 const removeMessage = () => {
   const successMessage = document.querySelector('.success');
@@ -28,7 +28,7 @@ const onPageClick = () => {
 };
 
 const onEscPress = (evt) => {
-  if (isEscEvent(evt)) {
+  if (detectEscEvent(evt)) {
     removeMessage();
     document.removeEventListener('keydown', onEscPress);
   }

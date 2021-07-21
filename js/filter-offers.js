@@ -1,5 +1,6 @@
 import { createMarker } from './map.js';
 
+const OFFER_QUANTITY = 10;
 const mapFilters = document.querySelector('.map__filters');
 const selectPrice = mapFilters.querySelector('#housing-price');
 const selectType = mapFilters.querySelector('#housing-type');
@@ -8,7 +9,7 @@ const selectGuests = mapFilters.querySelector('#housing-guests');
 const selectFeatures = mapFilters.querySelector('.map__features');
 let selectedFeatures = [];
 const featuresInputs = selectFeatures.querySelectorAll('input');
-const OFFER_QUANTITY = 10;
+
 let createdOffers = [];
 
 const checkPrice = (element) => {

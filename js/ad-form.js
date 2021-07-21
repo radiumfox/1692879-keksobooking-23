@@ -6,7 +6,7 @@ const titleMinLength = titleInput.getAttribute('minLength');
 const priceInput = adForm.querySelector('#price');
 const priceMaxValue = priceInput.getAttribute('max');
 const typeInput = adForm.querySelector('#type');
-const roomNumber = adForm.querySelector('#room_number');
+const roomsNumber = adForm.querySelector('#room_number');
 const capacity = adForm.querySelector('#capacity');
 const checkin = adForm.querySelector('#timein');
 const checkout = adForm.querySelector('#timeout');
@@ -59,7 +59,7 @@ const activatePage = (filtersEnabler) => {
   filtersEnabler();
 };
 
-const checkTitle = () => {
+const onTitleInput = () => {
   const titleLength = titleInput.value.length;
   if (titleLength < titleMinLength){
     titleInput.setCustomValidity(`Еще ${titleMinLength - titleLength} символов`);
@@ -69,7 +69,7 @@ const checkTitle = () => {
   titleInput.reportValidity();
 };
 
-const checkPrice = () => {
+const onPriceInput = () => {
   const minPrice = DEFAULT_PRICES[typeInput.value];
   if (priceInput.value < minPrice) {
     priceInput.setCustomValidity(`Цена за ночь не может быть ниже ${minPrice} р.`);
@@ -81,8 +81,13 @@ const checkPrice = () => {
   priceInput.reportValidity();
 };
 
-const checkCapacity = () => {
-  if (NUMBER_OF_GUESTS[roomNumber.value].includes(Number(capacity.value))) {
+const onTypeChange = () => {
+  priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
+  onPriceInput();
+};
+
+const onCapacityChange = () => {
+  if (NUMBER_OF_GUESTS[roomsNumber.value].includes(Number(capacity.value))) {
     capacity.setCustomValidity('');
   } else {
     capacity.setCustomValidity('Неверно введено число гостей');
@@ -90,24 +95,31 @@ const checkCapacity = () => {
   capacity.reportValidity();
 };
 
-const checkTimeIn = () => {
+const onRoomsNumberChange = () => {
+  onCapacityChange();
+};
+
+const onCheckinChange = () => {
   checkout.value = checkin.value;
 };
 
-const checkTimeOut = () => {
+const onCheckoutChange = () => {
   checkin.value = checkout.value;
 };
 
 priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
 
-titleInput.addEventListener('input', checkTitle);
-priceInput.addEventListener('input', checkPrice);
-capacity.addEventListener('input', checkCapacity);
-checkin.addEventListener('change', checkTimeIn);
-checkout.addEventListener('change', checkTimeOut);
+titleInput.addEventListener('input', onTitleInput);
+priceInput.addEventListener('input', onPriceInput);
+typeInput.addEventListener('change', onTypeChange);
+capacity.addEventListener('change', onCapacityChange);
+roomsNumber.addEventListener('change', onRoomsNumberChange);
+checkin.addEventListener('change', onCheckinChange);
+checkout.addEventListener('change', onCheckoutChange);
 
 const resetForm = () => {
   adForm.reset();
+  priceInput.placeholder = DEFAULT_PRICES[typeInput.value];
 };
 
 const setUserFormSubmit = (onSuccess, onFail) => {

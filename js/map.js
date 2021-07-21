@@ -30,7 +30,7 @@ L.tileLayer(
 const mainPinIcon = L.icon({
   iconUrl: './img/main-pin.svg',
   iconSize: [52, 52],
-  iconAncor: [26, 52],
+  iconAnchor: [26, 52],
 });
 
 const mainPinMarker = L.marker(
